@@ -13,13 +13,13 @@ public class MainActivity extends AppCompatActivity {
     int activePlayer = 0;                               // 0 == 'o' , 1 == 'x'
     int[] gameBoard = { 9, 9, 9, 9, 9, 9, 9, 9, 9 };    // 9 == empty place     (imagine that this is a 3x3 game board)
     int[][] winningPositions = { {0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6} };  // Look at the 3x3 board
-
+    boolean gameOver = false;
 
     public void tapOn( View view ) {
         ImageView anImage = (ImageView) view;               // "view" object from parameter
         int tappedImage = Integer.parseInt( anImage.getTag().toString() );  // get the location/the tag of the tapped image.
 
-        if (gameBoard[tappedImage] == 9) {                  // If the place is empty ( == 9), allow player to continue. If it is already reserved for a player 'x' or 'o', then do nothing.
+        if (gameBoard[tappedImage] == 9  &&  !gameOver) {   // If the place is empty ( == 9) and the GAME is not OVER, allow player to continue. If it is already reserved for a player 'x' or 'o', then do nothing.
 
             gameBoard[tappedImage] = activePlayer;          // Located the player on game board, according to the tapped place.
 
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                         winner = "Player X";
                     }
                     Toast.makeText(this, winner + " has won!!!", Toast.LENGTH_LONG).show();
+                    gameOver = true;
                 }
             }
         }
