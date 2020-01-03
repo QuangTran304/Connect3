@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,13 +46,61 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         winner = "Player X";
                     }
-                    Toast.makeText(this, winner + " has won!!!", Toast.LENGTH_LONG).show();
+
                     gameOver = true;
+
+                    Button replayButton = (Button) findViewById( R.id.replayButton );
+                    TextView winnerAnnounce = (TextView) findViewById( R.id.winnerTextView );
+                    winnerAnnounce.setText( winner + " win!" );
+                    winnerAnnounce.setVisibility( View.VISIBLE );
+                    replayButton.setVisibility( View.VISIBLE );
+
                 }
             }
         }
 
     }
+
+
+    public void replay( View view ) {
+        Button replayButton = (Button) findViewById( R.id.replayButton );
+        TextView winnerAnnounce = (TextView) findViewById( R.id.winnerTextView );
+
+        winnerAnnounce.setVisibility( View.INVISIBLE );
+        replayButton.setVisibility( View.INVISIBLE );
+
+        Toast.makeText(this, "LOADING...", Toast.LENGTH_SHORT).show();
+
+
+        // Need to change all the player's imageView resource to empty (setImageDrawable == null)
+        ImageView i1 = (ImageView) findViewById( R.id.O_1 );
+        i1.setImageDrawable(null);
+        ImageView i2 = (ImageView) findViewById( R.id.O_2 );
+        i2.setImageDrawable(null);
+        ImageView i3 = (ImageView) findViewById( R.id.O_3 );
+        i3.setImageDrawable(null);
+        ImageView i4 = (ImageView) findViewById( R.id.O_4 );
+        i4.setImageDrawable(null);
+        ImageView i5 = (ImageView) findViewById( R.id.O_5 );
+        i5.setImageDrawable(null);
+        ImageView i6 = (ImageView) findViewById( R.id.O_6 );
+        i6.setImageDrawable(null);
+        ImageView i7 = (ImageView) findViewById( R.id.O_7 );
+        i7.setImageDrawable(null);
+        ImageView i8 = (ImageView) findViewById( R.id.O_8 );
+        i8.setImageDrawable(null);
+        ImageView i9 = (ImageView) findViewById( R.id.O_9 );
+        i9.setImageDrawable(null);
+
+
+        // Resetting everything:
+        for (int i = 0; i < gameBoard.length; ++i) {
+            gameBoard[i] = 9;
+        }
+        activePlayer = 0;
+        gameOver = false;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
